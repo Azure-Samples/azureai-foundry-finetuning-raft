@@ -1,43 +1,36 @@
-ipykernel
-datasets
-openai
-PyPDF2
-transformers
-python-dotenv
-PyYAML
-coloredlogs
-mdc
-pytest
-Wand
-strictyaml
+ipykernel==6.29.5
+datasets==4.0.0
+openai==1.95.1
+PyPDF2==3.0.1
+transformers==4.53.2
+python-dotenv==1.0.1
+PyYAML==6.0.1
+coloredlogs==15.0.1
+mdc==1.2.1
+pytest==8.1.2
+Wand==0.6.13
+strictyaml==1.7.3
 
-azure-ai-evaluation[remote]
-azure-ai-inference
-
+azure-ai-evaluation[remote]==1.9.0
+azure-ai-inference==1.0.0b9
 # Fine-tuning
-azure-ai-ml
-azure-identity
-matplotlib
-numpy
-
+azure-ai-ml==1.28.1
+azure-identity==1.17.1
+matplotlib==3.10.3
+numpy==2.3.1
 # To run notebooks from the command line
-papermill
-black[jupyter]
-
+papermill==2.6.0
+black==25.1.0
 # Azure ML Infra
-azureml-core
-msrestazure
-azure-mgmt-resource
-
+azureml-core==1.60.0.post1
+msrestazure==0.6.4.post1
+azure-mgmt-resource==24.0.0
 # Infra tests
-pytest
-requests
-click
-rich
-rich-click
-
-survey
-dotenv-azd
-
+requests==2.32.3
+click==8.1.7
+rich==13.8.1
+rich-click==1.8.3
+survey==5.4.0
+dotenv-azd==0.3.0
 # llmscout to proxy multiple backend models
 git+https://github.com/cedricvidal/llmscout.git@main
