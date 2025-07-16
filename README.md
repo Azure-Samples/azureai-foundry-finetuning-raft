@@ -11,6 +11,8 @@ This recipe uses either [OpenAI GPT-4o](https://learn.microsoft.com/en-us/azure/
 
 > **Note**: While this recipe involves using a larger model to generate training data for a smaller model (a form of distillation), the primary focus is on improving RAG system precision through RAFT fine-tuning rather than general model distillation.
 
+The workflows and notebooks are designed to be as hands-free as possible, ensuring that even complex tasks like generating synthetic datasets, fine-tuning models, and deploying them can be accomplished with minimal manual intervention.
+
 <table>
     <tr>
         <td><img src="./doc/microsoft-logo.png" style="max-height:100px; height: auto;"/></td>
@@ -20,7 +22,6 @@ This recipe uses either [OpenAI GPT-4o](https://learn.microsoft.com/en-us/azure/
     </tr>
 </table>
 
-**Project Goal**: The primary objective of this project is to simplify and automate the process of improving RAG system precision using RAFT fine-tuning. The workflows and notebooks are meant to be as hands-free as possible, ensuring that even complex tasks like generating synthetic datasets, fine-tuning models for better retrieval augmentation, and deploying them can be accomplished with minimal manual intervention. Whether you're a beginner or an expert, our focus is on providing a seamless experience that allows you to focus on building more precise RAG systems rather than the underlying technical complexity.
 
 ## More about RAFT
 
