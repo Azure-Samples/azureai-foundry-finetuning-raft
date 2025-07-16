@@ -110,6 +110,13 @@ def filter_provider_transfer_compliant_models(deployment, role, selected_platfor
 def get_deployment_names(ai_config, regions, role='teacher', selected_platforms=None):
     deployments=ai_config['deployments'] if 'deployments' in ai_config else []
 
-    deployments = filter(lambda d: role in d['roles'] and Descriptor(d).is_supported_in_regions(regions) and filter_provider_transfer_compliant_models(d, role, selected_platforms), deployments)
+    deployment_filter = lambda d: (
+        role in d['roles']
+            and Descriptor(d).is_supported_in_regions(regions)
+            and filter_provider_transfer_compliant_models(d, role, selected_platforms)
+    )
+
+    deployments = filter(deployment_filter, deployments)
+
     deploymentNames = map(lambda d: d['name'], deployments)
     return list(deploymentNames)
