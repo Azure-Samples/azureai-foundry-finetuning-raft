@@ -72,9 +72,26 @@ def get_regions(aiConfig):
     regions = set([region for d in deployments for region in d['regions']])
     return regions
 
-def get_deployment_names(ai_config, regions, role='teacher'):
+def get_deployment_names(ai_config, regions, role='teacher', selected_platforms=None):
     deployments=ai_config['deployments'] if 'deployments' in ai_config else []
 
-    deployments = filter(lambda d: role in d['roles'] and Descriptor(d).is_supported_in_regions(regions), deployments)
+    def should_include_deployment(deployment):
+        if not selected_platforms:
+            return True
+        
+        platform = deployment.get('platform')
+        if not platform:
+            return True
+            
+        # If this is a teacher/student role and a platform has been selected for any teacher/student role,
+        # only include deployments with the same platform
+        if role in ['teacher', 'student']:
+            for selected_role, selected_platform in selected_platforms.items():
+                if selected_role in ['teacher', 'student']:
+                    return platform == selected_platform
+        
+        return True
+
+    deployments = filter(lambda d: role in d['roles'] and Descriptor(d).is_supported_in_regions(regions) and should_include_deployment(d), deployments)
     deploymentNames = map(lambda d: d['name'], deployments)
     return list(deploymentNames)
