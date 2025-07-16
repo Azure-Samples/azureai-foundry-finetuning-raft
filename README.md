@@ -1,15 +1,17 @@
-# LLM Distillation Recipe using UC Berkeley's RAFT on Azure AI Serverless
+# RAFT Finetuning on<sub><img src="./doc/azure-ai-foundry.png" width="65"></sub>Azure AI Foundry
 
 <p align="center">
     <img src="./doc/gorilla-distillation.jpeg" width="75%" />
     <p align="center"><i>Generated using DALL-e 3 on Azure AI</i></p>
 </p>
 
-This repository is a recipe that will walk you through doing LLM distillation on Azure AI Serverless.
+This repository is a recipe that will walk you through improving RAG system precision using UC Berkeley's RAFT technique on Azure AI Foundry. RAFT (Retrieval Augmented Fine-Tuning) is a method that fine-tunes language models to better understand and utilize retrieved context for more accurate responses.
 
->  **Distillation** is a process where a large pre-trained model (often referred to as the "teacher" model) is used to train a smaller, more efficient model (known as the "student" model). The goal is to transfer the knowledge from the teacher to the student, enabling the student to achieve comparable performance while being more resource-efficient.
+This recipe uses either [OpenAI GPT-4o](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure#gpt-4o-and-gpt-4-turbo) or [Meta Llama 3.1 405B](https://aka.ms/c/learn-deploy-llama) as a teacher model deployed on [Azure AI](https://aka.ms/c/learn-ai) to generate a synthetic dataset using [UC Berkeley's Gorilla](https://aka.ms/ucb-gorilla) project RAFT method (see [blog post](https://aka.ms/raft-blog)). The synthetically generated dataset will then be used to fine-tune a student model such as OpenAI GPT-4o-mini or Meta Llama 3.1 8B or another supported model to improve its RAG capabilities. Finally, we will deploy the fine-tuned model and evaluate its performance compared to a baseline model.
 
-This recipe can use either [OpenAI GPT-4o](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure#gpt-4o-and-gpt-4-turbo) or [Meta Llama 3.1 405B](https://aka.ms/c/learn-deploy-llama) as a teacher model deployed on [Azure AI](https://aka.ms/c/learn-ai) to generate a synthetic dataset using [UC Berkeley's Gorilla](https://aka.ms/ucb-gorilla) project RAFT method (see [blog post](https://aka.ms/raft-blog)). The synthetically generated dataset will then be used to finetune a student model such as OpenAI GPT-4o-mini or Meta Llama 3.1 8B or another supported model. Finally, we will deploy the fine-tuned model and evaluate its performance compared to a baseline model.
+> **Note**: While this recipe involves using a larger model to generate training data for a smaller model (a form of distillation), the primary focus is on improving RAG system precision through RAFT fine-tuning rather than general model distillation.
+
+The workflows and notebooks are designed to be as hands-free as possible, ensuring that even complex tasks like generating synthetic datasets, fine-tuning models, and deploying them can be accomplished with minimal manual intervention.
 
 <table>
     <tr>
@@ -20,7 +22,6 @@ This recipe can use either [OpenAI GPT-4o](https://learn.microsoft.com/en-us/azu
     </tr>
 </table>
 
-**Project Goal**: The primary objective of this project is to simplify and automate the process of distilling large language models. The workflows and notebooks are meant to be as hands-free as possible, ensuring that even complex tasks like generating synthetic datasets, fine-tuning models, and deploying them can be accomplished with minimal manual intervention. Whether you’re a beginner or an expert, our focus is on providing a seamless experience that allows you to focus on the results rather than the process.
 
 ## More about RAFT
 
@@ -33,7 +34,7 @@ This recipe can use either [OpenAI GPT-4o](https://learn.microsoft.com/en-us/azu
 
 ## Getting started / Provisioning Azure AI infrastructure
 
-The infrastructure for this project is fully provisioned using the Azure Developer CLI ([AZD](https://aka.ms/c/learn/azd)). AZD simplifies the deployment process by automating the setup of all required Azure resources, ensuring that you can get started with minimal configuration. This approach allows you to focus on the core aspects of model distillation and fine-tuning, while AZD handles the complexities of cloud resource management behind the scenes. By leveraging AZD, the project maintains a consistent and reproducible environment, making it easier to collaborate and scale.
+The infrastructure for this project is fully provisioned using the Azure Developer CLI ([AZD](https://aka.ms/c/learn/azd)). AZD simplifies the deployment process by automating the setup of all required Azure resources, ensuring that you can get started with minimal configuration. This approach allows you to focus on the core aspects of RAFT fine-tuning for RAG improvement, while AZD handles the complexities of cloud resource management behind the scenes. By leveraging AZD, the project maintains a consistent and reproducible environment, making it easier to collaborate and scale.
 
 The easiest is to open the project in Codespaces (or in VS Code Dev Container locally). It comes with azd included.
 
