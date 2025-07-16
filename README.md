@@ -1,11 +1,11 @@
-# LLM Distillation Recipe using UC Berkeley's RAFT on Azure AI Serverless
+# RAFT Finetuning on <sub><img src="./doc/azure-ai-foundry.png" width="65"></sub>Azure AI Foundry
 
 <p align="center">
     <img src="./doc/gorilla-distillation.jpeg" width="75%" />
     <p align="center"><i>Generated using DALL-e 3 on Azure AI</i></p>
 </p>
 
-This repository is a recipe that will walk you through doing LLM distillation on Azure AI Serverless.
+This repository is a recipe that will walk you through doing LLM Finetuning using UC Berkeley's RAFT technic on Azure AI Foundry.
 
 >  **Distillation** is a process where a large pre-trained model (often referred to as the "teacher" model) is used to train a smaller, more efficient model (known as the "student" model). The goal is to transfer the knowledge from the teacher to the student, enabling the student to achieve comparable performance while being more resource-efficient.
 
