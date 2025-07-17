@@ -72,9 +72,51 @@ def get_regions(aiConfig):
     regions = set([region for d in deployments for region in d['regions']])
     return regions
 
-def get_deployment_names(ai_config, regions, role='teacher'):
+def filter_provider_transfer_compliant_models(deployment, role, selected_platforms):
+    """
+    Ensures platform consistency for teacher and student model selections to comply with 
+    model provider licensing constraints.
+    
+    Once a teacher or student model has been selected from a specific platform (e.g., Azure OpenAI, 
+    OpenAI, etc.), this function restricts subsequent teacher/student model selections to only 
+    include models from that same platform. This prevents mixing platforms within the teaching 
+    workflow, which is required to comply with licensing terms from model providers that restrict
+    using their models to train competing models from other providers.
+    
+    Args:
+        deployment: A deployment dictionary containing platform and role information
+        role: The role being selected for (e.g., 'teacher', 'student')
+        selected_platforms: Dictionary of already selected platforms by role
+        
+    Returns:
+        bool: True if the deployment should be included in the available options
+    """
+    if not selected_platforms:
+        return True
+    
+    platform = deployment.get('platform')
+    if not platform:
+        return True
+        
+    # If this is a teacher/student role and a platform has been selected for any teacher/student role,
+    # only include deployments with the same platform
+    if role in ['teacher', 'student']:
+        for selected_role, selected_platform in selected_platforms.items():
+            if selected_role in ['teacher', 'student']:
+                return platform == selected_platform
+    
+    return True
+
+def get_deployment_names(ai_config, regions, role='teacher', selected_platforms=None):
     deployments=ai_config['deployments'] if 'deployments' in ai_config else []
 
-    deployments = filter(lambda d: role in d['roles'] and Descriptor(d).is_supported_in_regions(regions), deployments)
+    deployment_filter = lambda d: (
+        role in d['roles']
+            and Descriptor(d).is_supported_in_regions(regions)
+            and filter_provider_transfer_compliant_models(d, role, selected_platforms)
+    )
+
+    deployments = filter(deployment_filter, deployments)
+
     deploymentNames = map(lambda d: d['name'], deployments)
     return list(deploymentNames)

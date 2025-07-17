@@ -78,6 +78,7 @@ if __name__ == '__main__':
         click.echo(f"Select which models to use for roles {roles_str}.")
         click.echo("Each selection narrows down future selections based on the region:")
         values = []
+        selected_platforms = {}
         regions = get_regions(ai_config.data)
         if region:
             regions = regions & set(region)
@@ -85,12 +86,17 @@ if __name__ == '__main__':
             if not regions:
                 raise Exception(f"No regions available. Check ai.yaml")
             role = arg_name.replace('_deployment', '')
-            names = get_deployment_names(ai_config.data, regions, role)
+            names = get_deployment_names(ai_config.data, regions, role, selected_platforms=selected_platforms)
             if not names:
                 raise Exception(f"No {role} model could be found in regions {', '.join(regions)}. Check ai.yaml")
             arg_value = select_model(role, names, default = arg_value)
             descriptor = ai_config.descriptors[arg_value]
             regions = regions & descriptor.regions
+
+            # Track selected platform for teacher/student roles
+            platform = descriptor.data.get('platform')
+            if platform and role in ['teacher', 'student']:
+                selected_platforms[role] = platform
 
             values.append((role_deployment_env_var_name(role), arg_value))
             values.append((role_model_env_var_name(role), descriptor.model.name))
