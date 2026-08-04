@@ -22,7 +22,7 @@ matplotlib==3.10.3
 numpy==2.3.1
 # To run notebooks from the command line
 papermill==2.6.0
-black==25.1.0
+black==26.3.1
 # Azure ML Infra
 azureml-core==1.60.0.post1
 msrestazure==0.6.4.post1
